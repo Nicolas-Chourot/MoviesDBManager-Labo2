@@ -1,0 +1,16 @@
+﻿@model IEnumerable<MoviesDBManager.Models.Movie>
+@{
+    ViewBag.Title = "Index";
+}
+<div class="prevent-select">
+    <h2>Films @Helper.IconCmd("Movies","Create", "fa-plus-square", "Ajouter...")</h2>
+    <hr />
+    <div id="MoviesContainer" class="MoviesContainer"> <!-- Refreshed periodically --> </div>
+</div>
+
+@section Scripts {
+
+    <script defer>
+        let movies = new PartialRefresh("@Url.Action("Movies")", "MoviesContainer", 15);
+    </script>
+}
