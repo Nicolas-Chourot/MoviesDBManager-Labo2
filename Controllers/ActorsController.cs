@@ -23,21 +23,17 @@ namespace MoviesDBManager.Controllers
         }
         public ActionResult Create()
         {
-            ViewBag.Castings = null;
-            ViewBag.Movies = SelectListUtilities<Movie>.Convert(DB.Movies.ToList());
             return View(new Actor());
         }
 
         [HttpPost]
-        public ActionResult Create(Actor actor, List<int> SelectedMovies)
+        public ActionResult Create(Actor actor)
         {
             if (ModelState.IsValid)
             {
-                DB.Actors.Add(actor, SelectedMovies);
+                DB.Actors.Add(actor);
                 return RedirectToAction("Index");
             }
-            ViewBag.Castings = SelectListUtilities<Movie>.Convert(actor.Movies);
-            ViewBag.Movies = SelectListUtilities<Movie>.Convert(DB.Movies.ToList());
             return View();
         }
 
@@ -56,8 +52,6 @@ namespace MoviesDBManager.Controllers
             Actor actor = DB.Actors.Get(id);
             if (actor != null)
             {
-                ViewBag.Castings = SelectListUtilities<Movie>.Convert(actor.Movies);
-                ViewBag.Movies = SelectListUtilities<Movie>.Convert(DB.Movies.ToList());
                 return View(actor);
             }
             return RedirectToAction("Index");
@@ -71,8 +65,6 @@ namespace MoviesDBManager.Controllers
                 DB.Actors.Update(actor, SelectedMovies);
                 return RedirectToAction("Details", new {id = actor.Id });
             }
-            ViewBag.Movies = SelectListUtilities<Movie>.Convert(actor.Movies);
-            ViewBag.Movies = SelectListUtilities<Movie>.Convert(DB.Movies.ToList());
             return View(actor);
         }
 

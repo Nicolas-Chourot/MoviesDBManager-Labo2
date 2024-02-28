@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace MoviesDBManager.Models
 {
@@ -41,6 +42,10 @@ namespace MoviesDBManager.Models
                 }
                 return movies.OrderBy(c => c.Name).ToList();
             }
+        }
+        public SelectList MoviesToSeleclist()
+        {
+            return SelectListUtilities<Movie>.Convert(Movies);
         }
     }
 }

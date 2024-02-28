@@ -23,21 +23,17 @@ namespace MoviesDBManager.Controllers
         }
         public ActionResult Create()
         {
-            ViewBag.Castings = null;
-            ViewBag.Actors = SelectListUtilities<Actor>.Convert(DB.Actors.ToList());
             return View(new Movie());
         }
 
         [HttpPost]
-        public ActionResult Create(Movie movie, List<int> SelectedActors, List<int> SelectedDistributorsId)
+        public ActionResult Create(Movie movie)
         {
             if (ModelState.IsValid)
             {
-                DB.Movies.Add(movie, SelectedActors, SelectedDistributorsId);
+                DB.Movies.Add(movie);
                 return RedirectToAction("Index");
             }
-            ViewBag.Castings = null;
-            ViewBag.Actors = SelectListUtilities<Actor>.Convert(DB.Actors.ToList());
             return View();
         }
         public ActionResult Details(int id)
@@ -54,23 +50,19 @@ namespace MoviesDBManager.Controllers
             Movie movie = DB.Movies.Get(id);
             if (movie != null)
             {
-                ViewBag.Castings = SelectListUtilities<Actor>.Convert(movie.Actors);
-                ViewBag.Actors = SelectListUtilities<Actor>.Convert(DB.Actors.ToList());
                 return View(movie);
             }
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult Edit(Movie movie, List<int> SelectedActors, List<int> SelectedDistributorsId)
+        public ActionResult Edit(Movie movie, List<int> SelectedActors)
         {
             if (ModelState.IsValid)
             {
-                DB.Movies.Update(movie, SelectedActors, SelectedDistributorsId);
+                DB.Movies.Update(movie, SelectedActors);
                 return RedirectToAction("Details", new { id = movie.Id });
             }
-            ViewBag.Castings = SelectListUtilities<Actor>.Convert(movie.Actors);
-            ViewBag.Actors = SelectListUtilities<Actor>.Convert(DB.Actors.ToList());
             return View();
         }
         public ActionResult Delete(int id)
