@@ -2,18 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace MoviesDBManager.Models
 {
     public class MoviesRepository : Repository<Movie>
     {
-        public int Add(Movie movie, List<int> actorsId, List<int> distributorsId)
+        public SelectList ToSelectList()
         {
-            BeginTransaction(); 
-            int movieId = base.Add(movie);
-            UpdateCasting(Get(movieId), actorsId);
-            EndTransaction();
-            return movieId;
+            return SelectListUtilities<Movie>.Convert(ToList().OrderBy(m => m.Name));
         }
         private void UpdateCasting(Movie movie, List<int> actorsId)
         {
@@ -33,8 +30,7 @@ namespace MoviesDBManager.Models
                 DB.Castings.Delete(movie.Id, actor.Id);
             }
         }
-       
-        public bool Update(Movie movie, List<int> actorsId, List<int> distributorsId)
+        public bool Update(Movie movie, List<int> actorsId)
         {
             BeginTransaction();
             base.Update(movie);

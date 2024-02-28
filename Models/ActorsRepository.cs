@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace MoviesDBManager.Models
 {
     public class ActorsRepository : Repository<Actor>
     {
-        public int Add(Actor actor, List<int> moviesId)
+        public SelectList ToSelectList()
         {
-            BeginTransaction();
-            int actorId = base.Add(actor);
-            UpdateCasting(Get(actorId), moviesId);
-            EndTransaction();
-            return actorId;
+            return SelectListUtilities<Actor>.Convert(ToList().OrderBy(m => m.Name));
         }
         private void UpdateCasting(Actor actor, List<int> moviesId)
         {

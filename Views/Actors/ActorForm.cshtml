@@ -44,10 +44,12 @@
         </div>
         @if (!createMode)
         {
+            var filmography = Model.MoviesToSeleclist();
+            var allMovies = MoviesDBManager.Models.DB.Movies.ToSelectList();
             <div class="form-group">
                 @Html.Label("Filmographie", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-8">
-                    @Helper.SelectionLists("SelectedMovies", ViewBag.Castings, ViewBag.Movies, 8)
+                    @Helper.SelectionLists("SelectedMovies", filmography, allMovies)
                 </div>
             </div>
         }
