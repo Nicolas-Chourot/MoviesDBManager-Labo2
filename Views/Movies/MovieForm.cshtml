@@ -2,8 +2,6 @@
 @{
     bool createMode = Model.Id == 0;
     string pageTitle = createMode ? "Ajout de film" : "Modification de film";
-    var casting = Model.ActorsToSeleclist();
-    var allActors = MoviesDBManager.Models.DB.Actors.ToSelectList();
 }
 
 @using (Html.BeginForm())
@@ -53,6 +51,9 @@
         </div>
         @if (!createMode)
         {
+            var casting = Model.ActorsToSeleclist();
+            var allActors = MoviesDBManager.Models.DB.Actors.ToSelectList();
+
             <div class="form-group">
                 @Html.Label("Acteurs", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-8">
