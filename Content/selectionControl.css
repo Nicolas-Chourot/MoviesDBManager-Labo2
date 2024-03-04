@@ -4,9 +4,10 @@
     flex-flow: row;
     font-family: Courrier,monospace;
     font-size: smaller;
-    border:1px solid #ccc;
-    border-radius:6px;
-    padding:4px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 4px;
+    justify-content: space-between;
 }
 
 .HorSelectionsCMD {
@@ -21,7 +22,6 @@
     display: none;
     flex-direction: row;
     min-height: 40px;
-    width: 280px;
     align-items: center;
     justify-content: center;
 }
@@ -33,6 +33,7 @@
 .selectionsGrid select {
     flex: 1;
     min-width: 120px;
+    max-width: 400px !important;
 }
 
 @media screen and (max-width: 440px ) {
